@@ -253,12 +253,6 @@ namespace DungeonEye
 			LastHit = DateTime.Now;
 
 			OnHit();
-
-			// Reward the team for having killed the entity
-			if (IsDead && attack.Striker is Hero)
-			{
-				GameScreen.Team.AddExperience(Reward);
-			}
 		}
 
 
@@ -276,17 +270,15 @@ namespace DungeonEye
 			foreach (string item in ItemsInPocket)
 				Square.DropItem(Position, ResourceManager.CreateAsset<Item>(item));
 
-			// Reward the team
-			foreach (Hero hero in GameScreen.Team.Heroes)
-				if (hero != null)
-					hero.AddExperience(Reward / GameScreen.Team.HeroCount);
-		}
+            // Reward the team
+            GameScreen.Team.AddExperience(Reward);
+        }
 
 
-		/// <summary>
-		/// Fired when the creature is first spawned 
-		/// </summary>
-		public void OnSpawn()
+        /// <summary>
+        /// Fired when the creature is first spawned 
+        /// </summary>
+        public void OnSpawn()
 		{
 			//Trace.WriteDebugLine("[Monster] {0} spawn at {1}.", Name, Location.ToStringShort());
 
