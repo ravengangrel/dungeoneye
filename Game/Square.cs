@@ -898,6 +898,9 @@ namespace DungeonEye
 		/// <returns>True if the item can be dropped</returns>
 		public bool DropItem(SquarePosition position, Item item)
 		{
+            if (item is null)
+                return false;
+
 			// No item in the middle of a block
 			if (position == SquarePosition.Center)
 				throw new ArgumentOutOfRangeException("position", "No items in the middle of a maze block !");
