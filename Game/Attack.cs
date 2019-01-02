@@ -119,12 +119,16 @@ namespace DungeonEye
 
 
 			if (item != null)
-				Hit = item.Damage.Roll();
+				Hit = item.Damage.Roll() + striker.Strength.Modifier;
 			else
 			{
 				Dice dice = new Dice(1, 4, 0);
-				Hit = dice.Roll();
+				Hit = dice.Roll() + striker.Strength.Modifier;
 			}
+
+            // Minimum damage is 1
+            if (Hit <= 0)
+                Hit = 1;
 
 			if (IsAHit)
 				Target.Hit(this);
